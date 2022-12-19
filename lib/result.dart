@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class Result extends StatelessWidget {
   final int ts;
+  VoidCallback reStartApp;
 
-  Result(this.ts);
+  Result(this.ts, this.reStartApp);
 
   String get resultPharse {
     String r = '';
@@ -22,9 +23,12 @@ class Result extends StatelessWidget {
   Widget build(BuildContext cnt) {
     print(ts);
     return Center(
-        child: Text(
-      resultPharse,
-      style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-    ));
+        child: Column(children: <Widget>[
+      Text(
+        resultPharse,
+        style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+      ),
+      FlatButton(onPressed: reStartApp, child: Text("Restart App"))
+    ]));
   }
 }

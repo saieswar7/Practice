@@ -17,6 +17,13 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   var index = 0;
   var ts = 0;
+  void reStartApp() {
+    setState(() {
+      index = 0;
+      ts = 0;
+    });
+  }
+
   void answeredQuestion(int s) {
     ts += s;
     setState(() {
@@ -61,6 +68,6 @@ class MyAppState extends State<MyApp> {
             ),
             body: index < questions.length
                 ? Quiz(questions, answeredQuestion, index)
-                : Result(ts)));
+                : Result(ts, reStartApp)));
   }
 }
