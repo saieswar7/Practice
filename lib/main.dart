@@ -1,41 +1,66 @@
 import 'package:flutter/material.dart';
+import './Question.dart';
+import './Answer.dart';
+import './quiz.dart';
+import './result.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+class MyApp extends StatefulWidget {
+  State<StatefulWidget> createState() {
+    return MyAppState();
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class MyAppState extends State<MyApp> {
+  var index = 0;
+  var ts = 0;
+  void answeredQuestion(int s) {
+    ts += s;
+    setState(() {
+      index = index + 1;
+    });
+  }
 
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
-      ),
-      body: Center(
-        child: Text(
-          'Hello, World!',
-        ),
-      ),
-    );
+    var questions = [
+      {
+        'questionText': 'What\'s your Fav Color ?',
+        'Ans': [
+          {'text': 'Black', 'score': 10},
+          {'text': 'White', 'score': 5},
+          {'text': 'Blue', 'score': 8},
+          {'text': 'Yellow', 'score': 4}
+        ]
+      },
+      {
+        'questionText': 'What\'s fav your Animal ?',
+        'Ans': [
+          {'text': 'Lion', 'score': 10},
+          {'text': 'Tiger', 'score': 8},
+          {'text': 'Goat', 'score': 3},
+          {'text': 'Bear', 'score': 2}
+        ]
+      },
+      {
+        'questionText': 'What\'s fav your Person ?',
+        'Ans': [
+          {'text': 'Dhoni', 'score': 7},
+          {'text': 'Virat', 'score': 5},
+          {'text': 'Rohit', 'score': 4},
+          {'text': 'Pant', 'score': 0}
+        ]
+      }
+    ];
+    return MaterialApp(
+        home: Scaffold(
+            appBar: AppBar(
+              title: const Text("My App"),
+            ),
+            body: index < questions.length
+                ? Quiz(questions, answeredQuestion, index)
+                : Result(ts)));
   }
 }
